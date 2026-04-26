@@ -43,7 +43,12 @@ console.log(`✓ package-lock.json regenererad`)
 
 // Commit + tag + push
 execSync('git add package.json package-lock.json src-tauri/tauri.conf.json src-tauri/Cargo.toml', { cwd: root, stdio: 'inherit' })
-execSync(`git commit -m "chore: bump version to ${version}"`, { cwd: root, stdio: 'inherit' })
+const status = execSync('git status --porcelain', { cwd: root }).toString().trim()
+if (status) {
+  execSync(`git commit -m "chore: bump version to ${version}"`, { cwd: root, stdio: 'inherit' })
+} else {
+  console.log('✓ Inga filändringar att committa')
+}
 
 // Ta bort befintlig tagg om den finns
 try {
