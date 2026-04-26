@@ -78,14 +78,27 @@ export const useJobsStore = defineStore("jobs", () => {
   const errorLi = ref<string | null>(null);
   const errorJs = ref<string | null>(null);
 
+  function dedupeKey(job: UnifiedJob): string {
+    const title = job.title.toLowerCase().trim();
+    const firstToken = job.company.toLowerCase().trim().split(/\s+/)[0] ?? "";
+    return `${title}|${firstToken}`;
+  }
+
   const allJobs = computed<UnifiedJob[]>(() => {
     const combined: UnifiedJob[] = [];
     if (settings.afEnabled) combined.push(...afJobs.value);
     if (settings.linkedinEnabled) combined.push(...liJobs.value);
     if (settings.jobbsafariEnabled) combined.push(...jsJobs.value);
-    return combined.sort((a, b) =>
+    combined.sort((a, b) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
+    const seen = new Set<string>();
+    return combined.filter((job) => {
+      const key = dedupeKey(job);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   });
 
   const filteredJobs = computed<UnifiedJob[]>(() => {
