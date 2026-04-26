@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Jobb Sök",
+  "productName": "Jobb Sok",
   "version": "1.0.0",
   "identifier": "com.jonaslarsson.jobb",
   "build": {

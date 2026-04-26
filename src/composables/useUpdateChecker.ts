@@ -1,9 +1,9 @@
 import { ref, onMounted } from "vue";
 import { getVersion } from "@tauri-apps/api/app";
-import { open } from "@tauri-apps/plugin-opener";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
-const RELEASES_API = "https://api.github.com/repos/JonasLarsson78/jobb-s-k-app/releases/latest";
-const RELEASES_PAGE = "https://github.com/JonasLarsson78/jobb-s-k-app/releases/latest";
+const RELEASES_API = "https://api.github.com/repos/JonasLarsson78/jobb-sok-app/releases/latest";
+const RELEASES_PAGE = "https://github.com/JonasLarsson78/jobb-sok-app/releases/latest";
 
 function semverGt(a: string, b: string): boolean {
   const pa = a.split(".").map(Number);
@@ -34,7 +34,7 @@ export function useUpdateChecker() {
   }
 
   function openReleasePage() {
-    open(RELEASES_PAGE);
+    openUrl(RELEASES_PAGE);
   }
 
   onMounted(check);
