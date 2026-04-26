@@ -10,6 +10,16 @@ macOS-app för att söka svenska jobbannonser från flera källor samtidigt.
 - Exkludera jobb med specifika ord i titel/företag
 - Visa/dölj sökt och ignorerade jobb via knappar i headern
 
+## Installation
+
+### "Jobb Sok is damaged and can't be opened"
+
+macOS blockerar appar som inte är signerade med ett Apple Developer-certifikat. Kör följande kommando i terminalen för att kringgå detta:
+
+```bash
+xattr -cr /Applications/Jobb\ Sok.app
+```
+
 ## Utveckling
 
 ```bash
